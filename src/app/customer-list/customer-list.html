@@ -3,8 +3,8 @@
         <input type="text" class="form-control mb-3" placeholder="Keresés név alapján..." id="searchByName" (input)="searchName($event)">
          <input type="text" class="form-control mb-3" placeholder="Keresés személyi szám alapján..." id="searchByIdCardNumber" (input)="searchIdCard($event)">
           <input type="text" class="form-control mb-3" placeholder="Keresés azonosító alapján..." id="searchById" (input)="searchId($event)">
-        <table class="table table-striped">
-            <thead>
+        <table class="table  table-hover align-middle">
+            <thead >
                 <tr>
                     <th>Egyedi azonosító</th>
                     <th>Név</th>
@@ -24,8 +24,8 @@
                     <td>{{ customer.address }}</td>
                     <td>{{ customer.isActive ? 'Igen' : 'Nem' }}</td>
                     <td>
-                        <button class="btn  btn-primary me-2" (click)="editCustomer(customer)">Szerkesztés</button>
-                        <button class="btn  btn-danger" (click)="toggleCustomerActivation(customer)">{{ customer.isActive ? 'Inaktiválás' : 'Aktiválás' }}</button>
+                        <button class="btn  btn-dark btn-sm me-2" (click)="editCustomer(customer)">Szerkesztés</button>
+                        <button class="btn  btn-danger btn-sm" (click)="toggleCustomerActivation(customer)">{{ customer.isActive ? 'Inaktiválás' : 'Aktiválás' }}</button>
                     </td>
                 </tr>
                 }
