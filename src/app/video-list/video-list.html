@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Egyedi azonosító</th>
+                    <th>Cím</th>
+                    <th>Beszerzés dátuma</th>
+                    <th>Státusz</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (video of videos(); track video.id) {
+                <tr>
+                     <td>{{ video.id }}</td>
+                    <td>{{ video.title }}</td>
+                    <td>{{ video.dateOfPurchase }}</td>
+                    <td>{{ video.status }}</td>
+                    <td>
+                        <button class="btn  btn-primary me-2" (click)="editVideo(video)">Szerkesztés</button>
+                        <button class="btn  btn-danger" (click)="deleteVideo(video)">Törlés</button> 
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

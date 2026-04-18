@@ -1,0 +1,79 @@
+<form #customerForm="ngForm" (ngSubmit)="saveCustomer()">
+
+  <div class="mb-3">
+    <label for="name" class="form-label">Ügyfél neve:</label>
+    <input type="text"
+           id="name"
+           name="name"
+           class="form-control"
+           [(ngModel)]="customer.name"
+           required
+           minlength="3"
+           #name="ngModel">
+
+    <div class="text-danger" *ngIf="name.invalid">
+      A név megadása kötelező (min. 3 karakter).
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="phone" class="form-label">Telefonszáma:</label>
+    <input type="text"
+           id="phone"
+           name="phone"
+           class="form-control"
+           [(ngModel)]="customer.phone"
+           required
+           pattern="^[0-9+\- ]{6,}$"
+           #phone="ngModel">
+
+    <div class="text-danger" *ngIf="phone.invalid ">
+      Érvényes telefonszámot adj meg.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="idCardNumber" class="form-label">Személyi száma:</label>
+    <input type="text"
+           id="idCardNumber"
+           name="idCardNumber"
+           class="form-control"
+           [(ngModel)]="customer.idCardNumber"
+           required
+           minlength="8"
+           maxlength="8"
+           #idCardNumber="ngModel">
+
+    <div class="text-danger" *ngIf="idCardNumber.invalid">
+      A személyi szám 8 karakter hosszú kell legyen.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="address" class="form-label">Lakcíme:</label>
+    <input type="text"
+           id="address"
+           name="address"
+           class="form-control"
+           [(ngModel)]="customer.address"
+           required
+           #address="ngModel">
+
+    <div class="text-danger" *ngIf="address.invalid">
+      A cím megadása kötelező.
+    </div>
+  </div>
+
+  <div class="mb-3 text-end">
+    <button class="btn btn-primary"
+            [disabled]="customerForm.invalid">
+      Mentés
+    </button>
+
+        <button class="btn btn-outline-primary"  (click)="cancelEdit()">
+      Mégse
+    </button>
+  </div>
+
+
+</form>

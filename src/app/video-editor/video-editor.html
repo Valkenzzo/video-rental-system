@@ -1,0 +1,58 @@
+<form #videoForm="ngForm" (ngSubmit)="saveVideo()">
+
+  <div class="mb-3">
+    <label for="title" class="form-label">DVD/Kazetta címe:</label>
+    <input type="text"
+           id="title"
+           name="title"
+           class="form-control"
+           [(ngModel)]="video.title"
+           required
+           minlength="3"
+           #title="ngModel">
+
+    <div class="text-danger" *ngIf="title.invalid">
+      A cím megadása kötelező (min. 3 karakter).
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="dateOfPurchase" class="form-label">Beszerzés dátuma:</label>
+    <input type="  date"
+           id="dateOfPurchase"
+           name="dateOfPurchase"
+           class="form-control"
+           [(ngModel)]="video.dateOfPurchase"
+           required
+           #dateOfPurchase="ngModel">
+
+    <div class="text-danger" *ngIf="dateOfPurchase.invalid ">
+      Érvényes dátumot adj meg.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="status" class="form-label">Státusz:</label>
+   
+          <select name="status" id="status" class="form-control" [(ngModel)]="video.status" required>
+            <option value="Free">Free</option>
+            <option value="Rented">Rented</option>
+            <option value="Maintenance">Maintenance</option>
+          </select>
+
+  </div>
+
+
+  <div class="mb-3 text-end">
+    <button class="btn btn-primary"
+            [disabled]="videoForm.invalid">
+      Mentés
+    </button>
+
+        <button class="btn btn-outline-primary"  (click)="cancelEdit()">
+      Mégse
+    </button>
+  </div>
+
+
+</form>

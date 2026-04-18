@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-8">
+        <input type="text" class="form-control mb-3" placeholder="Keresés név alapján..." id="searchByName" (input)="searchName($event)">
+         <input type="text" class="form-control mb-3" placeholder="Keresés személyi szám alapján..." id="searchByIdCardNumber" (input)="searchIdCard($event)">
+          <input type="text" class="form-control mb-3" placeholder="Keresés azonosító alapján..." id="searchById" (input)="searchId($event)">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Egyedi azonosító</th>
+                    <th>Név</th>
+                    <th>Telefonszám</th>
+                    <th>Személyi szám</th>
+                    <th>Cím</th>
+                    <th>Aktív</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (customer of filteredCustomers(); track customer.id) {
+                <tr>
+                     <td>{{ customer.id }}</td>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.phone }}</td>
+                    <td>{{ customer.idCardNumber }}</td>
+                    <td>{{ customer.address }}</td>
+                    <td>{{ customer.isActive ? 'Igen' : 'Nem' }}</td>
+                    <td>
+                        <button class="btn  btn-primary me-2" (click)="editCustomer(customer)">Szerkesztés</button>
+                        <button class="btn  btn-danger" (click)="toggleCustomerActivation(customer)">{{ customer.isActive ? 'Inaktiválás' : 'Aktiválás' }}</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
