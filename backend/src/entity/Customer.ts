@@ -1,8 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { CustomerDTO } from "../../../models";
+import { Rent } from "./Rent";
 
 @Entity()
-export class Customer implements CustomerDTO{
+export class Customer implements CustomerDTO {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -12,12 +13,16 @@ export class Customer implements CustomerDTO{
     @Column()
     phone: string;
 
-    @Column({unique: true})
+    @Column({ unique: true })
     idCardNumber: string;
 
     @Column()
     address: string;
 
-    @Column({default: true})
+    @Column({ default: true })
     isActive: boolean;
+
+    @OneToMany(() => Rent, rent => rent.customer)
+    rents: Rent[];
+
 }

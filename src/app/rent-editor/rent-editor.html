@@ -1,0 +1,42 @@
+<form #rentForm="ngForm">
+
+    <label for="customerId" class="form-label">Kölcsönző azonosítója:</label>
+    <input type="text" id="customerId" name="customerId" class="form-control" [(ngModel)]="customerId"
+        [disabled]="foundCustomer()" required minlength="1">
+
+    <div *ngIf="foundCustomer()">
+
+        <label>
+            {{ (selectedCustomer?.rents?.length ?? 0) === 0
+            ? 'Felhasználónak nincs még kölcsönzése'
+            : 'Felhasználó kölcsönzései:' }}
+        </label>
+
+        <ul>
+            <li *ngFor="let rent of selectedCustomer?.rents">
+                {{ rent.video.id }} – {{ rent.video.title }} – {{ rent.rentDate }}
+            </li>
+        </ul>
+
+
+        <label for="videoId" class="form-label">Video azonosítója:</label>
+        <input type="text" id="videoId" name="videoId" class="form-control" [(ngModel)]="videoId" required
+            minlength="1">
+
+    </div>
+
+    <button class="btn btn-dark" *ngIf="!foundCustomer()" [disabled]="rentForm.invalid" (click)="approveCustomer()">
+        Tovább
+    </button>
+
+    <button class="btn btn-dark" *ngIf="foundCustomer()" [disabled]="rentForm.invalid" (click)="saveRent()">
+        Mentés
+    </button>
+
+    <button class="btn btn-dark" *ngIf="foundCustomer()" (click)="back()">
+        Vissza
+    </button>
+
+    <button class="btn btn-dark">Mégse</button>
+
+</form>

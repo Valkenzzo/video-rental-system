@@ -7,6 +7,7 @@ export interface CustomerDTO{
     idCardNumber: string;
     address: string;
     isActive: boolean;
+    rents: RentDTO[];
 }
 
 export interface VideoDTO{
@@ -15,4 +16,13 @@ export interface VideoDTO{
     dateOfPurchase: Date;
     status: VideoStatus;
     
+}
+
+export interface RentDTO{
+    id: number;
+    customer: CustomerDTO;
+    video: VideoDTO;
+    rentDate: Date;
+    returnDate: Date | null;
+    isActive: boolean;
 }

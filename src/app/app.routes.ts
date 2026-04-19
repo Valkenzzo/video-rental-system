@@ -3,6 +3,8 @@ import { CustomerList } from './customer-list/customer-list';
 import { CustomerEditor } from './customer-editor/customer-editor';
 import { VideoList } from './video-list/video-list';
 import { VideoEditor } from './video-editor/video-editor';
+import { RentList } from './rent-list/rent-list';
+import { RentEditor } from './rent-editor/rent-editor';
 
 
 export const routes: Routes = [
@@ -36,6 +38,16 @@ export const routes: Routes = [
     {
         path: 'edit-video/:id',
         component: VideoEditor
+    }
+     ,
+    {
+        path: 'rents',
+        component: RentList
+    }
+     ,
+    {
+        path: 'create-rent',
+        component: RentEditor
     }
 
 ];

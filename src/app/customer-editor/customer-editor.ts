@@ -19,7 +19,8 @@ export class CustomerEditor implements OnInit {
     phone: '',
     idCardNumber: '',
     address: '',
-    isActive: true
+    isActive: true,
+    rents: []
   };
 
   customerService = inject(CustomerService);

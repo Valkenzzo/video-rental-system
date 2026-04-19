@@ -1,6 +1,7 @@
 import express from "express";
 import { CustomerController } from "./controller/customer.controller";
 import { VideoController } from "./controller/video.controller";
+import { RentController } from "./controller/rent.controller";
 
 export const appRouter=express.Router();
 
@@ -19,3 +20,8 @@ appRouter.post('/video', videoController.create);
 appRouter.get('/video/:id', videoController.getOne);
 appRouter.put('/video', videoController.update);
 appRouter.delete('/video/:id', videoController.delete);
+
+const rentController=new RentController();
+
+appRouter.get('/rent', rentController.getAll);
+appRouter.post('/rent', rentController.create);
