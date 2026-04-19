@@ -72,7 +72,7 @@ export class RentEditor implements OnInit {
 
   approveCustomer() {
 
-    const customer = this.customers.find(c => c.id === Number(this.customerId));
+    const customer = this.customers.find(c => c.id === Number(this.customerId) && c.isActive);
     if (customer) {
       this.selectedCustomer = customer;
       this.foundCustomer.set(true);
@@ -80,7 +80,7 @@ export class RentEditor implements OnInit {
 
     } else {
 
-      alert('Nincs ilyen azonosítójú ügyfél');
+      alert('Nincs ilyen azonosítójú ügyfél vagy az ügyfél inaktív');
       this.foundCustomer.set(false);
     }
   }

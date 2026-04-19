@@ -23,4 +23,8 @@ export class RentService {
     return this.http.post<RentDTO>('/api/rent', rent);
   }
 
+  delete(rentId: number) {
+    return this.http.delete(`/api/rent/${rentId}`);
+  }
+
 }

@@ -25,3 +25,4 @@ const rentController=new RentController();
 
 appRouter.get('/rent', rentController.getAll);
 appRouter.post('/rent', rentController.create);
+appRouter.delete('/rent/:id', rentController.delete);

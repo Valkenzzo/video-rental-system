@@ -16,7 +16,7 @@ export class CustomerList implements OnInit {
 
   customers = signal<CustomerDTO[]>([]);
   filteredCustomers = signal<CustomerDTO[]>([]);
-    cdRef = inject(ChangeDetectorRef);
+  cdRef = inject(ChangeDetectorRef);
 
 
   nameFilter = '';
@@ -45,6 +45,11 @@ export class CustomerList implements OnInit {
         const index = customers.indexOf(customer);
         if (index > -1) {
 
+          if(customer.rents.length > 0 && customer.isActive){
+            alert('Nem lehet inaktiválni egy olyan ügyfelet, akinek van aktív kölcsönzése.');
+            return;
+          }
+          
           customers[index].isActive = !customers[index].isActive;
           this.customers.set([...customers]);
           this.cdRef.markForCheck();
