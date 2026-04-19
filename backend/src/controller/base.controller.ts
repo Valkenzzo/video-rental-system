@@ -17,7 +17,7 @@ export abstract class Controller {
 
     };
 
-    getOne = async (req, res) => {
+    getOne  = async (req, res) => {
 
         try {
             const id = req.params['id'];
@@ -36,7 +36,7 @@ export abstract class Controller {
         }
 
 
-    };
+    }
 
     create = async (req, res) => {
 
@@ -108,7 +108,7 @@ export abstract class Controller {
 
     };
 
-    handleError (res, err, status = 500, message = 'Unknown server error')  {
+    handleError (res, err, status = 500, message = 'Unknown server error')   {
 
     if (err) {
         console.error(err);

@@ -6,6 +6,7 @@ import { CustomerService } from '../services/customer-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VideoService } from '../services/video-service';
 import { RentService } from '../services/rent-service';
+import { VideoStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-rent-editor',
@@ -93,6 +94,11 @@ export class RentEditor implements OnInit {
       return;
     }
 
+    if (video.status !== VideoStatus.Free) {
+      alert('A kiválasztott video nem elérhető kölcsönzésre');
+      return;
+    }
+
     const newRent: RentDTO = {
       id: 0, // This will be set by the backend
       customer: this.selectedCustomer!,
@@ -101,6 +107,16 @@ export class RentEditor implements OnInit {
       returnDate: null,
       isActive: true
     };
+
+    this.videoService.updateVideo({ ...video, status: VideoStatus.Rented }).subscribe({
+      next: () => {
+        //alert('Video státusz frissítve');
+      },
+      error: (err) => {
+        alert('Hiba a video státusz frissítése során');
+        console.log(err);
+      }
+    });
 
     this.rentService.createRent(newRent).subscribe({
       next: () => {
@@ -116,5 +132,9 @@ export class RentEditor implements OnInit {
 
   back() {
     this.foundCustomer.set(false);
+  }
+
+  cancel() {
+    this.router.navigateByUrl('/rents');
   }
 }
