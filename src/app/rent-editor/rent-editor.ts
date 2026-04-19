@@ -21,8 +21,8 @@ export class RentEditor implements OnInit {
   videoId: string = '';
   customers: CustomerDTO[] = [];
   videos: VideoDTO[] = [];
- selectedCustomer: CustomerDTO | null = null;
-  
+  selectedCustomer: CustomerDTO | null = null;
+
   foundCustomer = signal(false);
 
 
@@ -88,7 +88,7 @@ export class RentEditor implements OnInit {
   saveRent() {
 
     const video = this.videos.find(v => v.id === Number(this.videoId));
-    
+
     if (!video) {
       alert('Nincs ilyen azonosítójú video');
       return;
