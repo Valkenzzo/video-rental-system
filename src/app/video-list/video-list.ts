@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/c
 import { VideoDTO } from '../../../models';
 import { VideoService } from '../services/video-service';
 import { Router } from '@angular/router';
+import { RentService } from '../services/rent-service';
+import { VideoStatus } from '../../../models/enums';
 
 @Component({
   selector: 'app-video-list',
@@ -13,9 +15,11 @@ export class VideoList implements OnInit {
 
 
   videoService = inject(VideoService);
+
   router = inject(Router);
 
   videos = signal<VideoDTO[]>([]);
+ // Adjust the type as needed
   cdRef = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
@@ -27,9 +31,17 @@ export class VideoList implements OnInit {
         console.error('Error fetching videos:', error);
       }
     });
+
+
   }
 
     editVideo(video: VideoDTO) {
+
+      if (video.status === VideoStatus.Rented ) {
+        alert('Nem szerkesztheted ezt a videót, mert jelenleg ki van kölcsönözve.');
+        return;
+      }
+
       this.router.navigate(['/edit-video', video.id]);
     }
   
