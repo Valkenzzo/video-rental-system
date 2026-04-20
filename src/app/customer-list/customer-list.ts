@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   selector: 'app-customer-list',
   imports: [],
   templateUrl: './customer-list.html',
-  styleUrl: './customer-list.css',
+  styleUrl: './customer-list.css', 
 })
 export class CustomerList implements OnInit {
 
