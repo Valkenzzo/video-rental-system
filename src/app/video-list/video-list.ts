@@ -51,20 +51,30 @@ export class VideoList implements OnInit {
   }
 
   deleteVideo(video: VideoDTO) {
-    if (confirm(`Biztos törölni akarod a "${video.title}" c. DVD-t/Kazettát?`)) {
-      this.videoService.deleteVideo(video.id).subscribe({
-        next: () => {
-          this.videos.set(this.videos().filter(v => v.id !== video.id));
-          this.cdRef.markForCheck();
-        },
-        error: (err) => {
-          console.error('Error deleting video:', err);
-        }
-      });
+    if (video.status === VideoStatus.Rented) {
+      alert('Nem törölheted ezt a videót, mert jelenleg ki van kölcsönözve.');
+      return;
     }
+
+    if (!confirm(`Biztos törölni akarod a "${video.title}" c. DVD-t/Kazettát?`)) {
+      return;
+    }
+
+
+    this.videoService.deleteVideo(video.id).subscribe({
+      next: () => {
+        this.videos.set(this.videos().filter(v => v.id !== video.id));
+        this.filteredVideos.set(this.filteredVideos().filter(v => v.id !== video.id));
+        this.cdRef.markForCheck();
+      },
+      error: (err) => {
+        console.error('Error deleting video:', err);
+      }
+    });
+
   }
 
-   searchId(event: Event) {
+  searchId(event: Event) {
     this.idFilter = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.applyFilter();
   }
