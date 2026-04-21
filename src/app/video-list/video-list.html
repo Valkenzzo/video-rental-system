@@ -20,7 +20,11 @@
                     <td>{{ video.id }}</td>
                     <td>{{ video.title }}</td>
                     <td>{{ video.dateOfPurchase }}</td>
-                    <td>{{ video.status }}</td>
+                    <td>{{     video.status === 'Free'
+      ? 'Szabad'
+      : video.status === 'Rented'
+        ? 'Kikölcsönzött'
+        : 'Selejtezett' }}</td>
                     <td>
                         <button class="btn  btn-dark btn-sm me-2" (click)="editVideo(video)">Szerkesztés</button>
                         <button class="btn  btn-danger btn-sm" (click)="deleteVideo(video)">Törlés</button>
