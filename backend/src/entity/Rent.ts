@@ -1,9 +1,10 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Customer } from "./Customer";
 import { Video } from "./Video";
+import { RentDTO } from "../../../models";
 
 @Entity()
-export class Rent {
+export class Rent implements RentDTO{
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -21,4 +22,7 @@ export class Rent {
 
     @Column({ default: true })
     isActive: boolean;
+
+    @Column({ default: false })
+    isLate: boolean;
 }

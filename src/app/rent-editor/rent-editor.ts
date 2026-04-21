@@ -103,9 +103,10 @@ export class RentEditor implements OnInit {
       id: 0, // This will be set by the backend
       customer: this.selectedCustomer!,
       video: video,
-      rentDate: new Date(),
+      rentDate: new Date(), 
       returnDate: null,
-      isActive: true
+      isActive: true,
+      isLate: false
     };
 
     this.videoService.updateVideo({ ...video, status: VideoStatus.Rented }).subscribe({

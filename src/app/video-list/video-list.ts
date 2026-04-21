@@ -19,13 +19,18 @@ export class VideoList implements OnInit {
   router = inject(Router);
 
   videos = signal<VideoDTO[]>([]);
- // Adjust the type as needed
+  filteredVideos = signal<VideoDTO[]>([]);
+  // Adjust the type as needed
   cdRef = inject(ChangeDetectorRef);
+
+  idFilter = '';
+  titleFilter = '';
 
   ngOnInit(): void {
     this.videoService.getAll().subscribe({
       next: (videos) => {
         this.videos.set(videos);
+        this.filteredVideos.set(videos);
       },
       error: (error) => {
         console.error('Error fetching videos:', error);
@@ -35,28 +40,47 @@ export class VideoList implements OnInit {
 
   }
 
-    editVideo(video: VideoDTO) {
+  editVideo(video: VideoDTO) {
 
-      if (video.status === VideoStatus.Rented ) {
-        alert('Nem szerkesztheted ezt a videót, mert jelenleg ki van kölcsönözve.');
-        return;
-      }
+    if (video.status === VideoStatus.Rented) {
+      alert('Nem szerkesztheted ezt a videót, mert jelenleg ki van kölcsönözve.');
+      return;
+    }
 
-      this.router.navigate(['/edit-video', video.id]);
+    this.router.navigate(['/edit-video', video.id]);
+  }
+
+  deleteVideo(video: VideoDTO) {
+    if (confirm(`Biztos törölni akarod a "${video.title}" c. DVD-t/Kazettát?`)) {
+      this.videoService.deleteVideo(video.id).subscribe({
+        next: () => {
+          this.videos.set(this.videos().filter(v => v.id !== video.id));
+          this.cdRef.markForCheck();
+        },
+        error: (err) => {
+          console.error('Error deleting video:', err);
+        }
+      });
     }
-  
-    deleteVideo(video: VideoDTO) {
-      if (confirm(`Biztos törölni akarod a "${video.title}" c. DVD-t/Kazettát?`)) {
-        this.videoService.deleteVideo(video.id).subscribe({
-          next: () => {
-            this.videos.set(this.videos().filter(v => v.id !== video.id));
-            this.cdRef.markForCheck();
-          },
-          error: (err) => {
-            console.error('Error deleting video:', err);
-          }
-        });
-      }
-    }
+  }
+
+   searchId(event: Event) {
+    this.idFilter = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.applyFilter();
+  }
+
+  searchTitle(event: Event) {
+    this.titleFilter = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    const result = this.videos().filter(v =>
+      v.title.toLowerCase().includes(this.titleFilter) &&
+      v.id.toString().includes(this.idFilter)
+    );
+
+    this.filteredVideos.set(result);
+  }
 
 }

@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col-md-8">
-  
+          <input type="text" class="form-control mb-3" placeholder="Keresés kölcsönző id alapján..."  (input)="searchCustomerId($event)">
+         <input type="text" class="form-control mb-3" placeholder="Keresés video id alapján..."  (input)="searchVideoId($event)">
+          <input type="text" class="form-control mb-3" placeholder="Keresés késés alapján..." (input)="searchLate($event)">
         <table class="table  table-hover align-middle">
             <thead >
                 <tr>
@@ -9,17 +11,18 @@
                     <th>DVD/Kazetta azonosítója</th>
                     <th>DVD/Kazetta címe</th>
                     <th>Kölcsönzés dátuma</th>
-                  
+                  <th>Késés (1nap megengedett)</th>
                 </tr>
             </thead>
             <tbody>
-                    @for (rent of rents(); track rent.id) {
+                    @for (rent of filteredRents(); track rent.id) {
                 <tr>
                     <td>{{ rent.customer.id }}</td>
                     <td>{{ rent.customer.name }}</td>
                     <td>{{ rent.video.id }}</td>
                     <td>{{ rent.video.title }}</td>
                     <td>{{ rent.rentDate }}</td>
+                     <td>{{ checkLate(rent) ? 'Igen' : 'Nem' }}</td>
                         <td>
                         <button class="btn  btn-danger btn-sm" (click)="deleteRent(rent)">Visszahozatal</button>
                     </td>

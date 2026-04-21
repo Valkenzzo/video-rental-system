@@ -25,4 +25,5 @@ export interface RentDTO{
     rentDate: Date;
     returnDate: Date | null;
     isActive: boolean;
+    isLate: boolean;
 }

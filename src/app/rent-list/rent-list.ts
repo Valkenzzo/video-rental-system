@@ -20,16 +20,28 @@ export class RentList implements OnInit {
   router = inject(Router);
 
   rents = signal<RentDTO[]>([]);
+  filteredRents = signal<RentDTO[]>([]);
 
   cdRef = inject(ChangeDetectorRef);
+
+  customerIdFilter = '';
+  videoIdFilter = '';
+  lateFilter = '';
 
 
   ngOnInit(): void {
 
     this.rentService.getAll().subscribe({
       next: (rents) => {
-        this.rents.set(rents);
-        this.cdRef.markForCheck();
+
+        const setLaterents = rents.map(rent => {
+          rent.isLate = this.checkLate(rent);
+          return rent;
+        });
+
+        this.rents.set(setLaterents);
+        this.filteredRents.set(setLaterents);
+        // this.cdRef.markForCheck();
 
       },
       error: (err) => {
@@ -45,7 +57,7 @@ export class RentList implements OnInit {
     video.status = VideoStatus.Free;
     this.videoService.updateVideo(video).subscribe({
       next: () => {
-        
+
       },
       error: (err) => {
         alert('Hiba a videó státuszának frissítése során');
@@ -59,8 +71,13 @@ export class RentList implements OnInit {
     if (confirm('Biztosan törölni szeretnéd a kölcsönzést?')) {
       this.rentService.delete(rent.id).subscribe({
         next: () => {
-          this.rents.update((rents) => rents.filter((r) => r.id !== rent.id));
+          const updated = this.rents().filter(r => r.id !== rent.id);
+
+          this.rents.set(updated);
+          this.filteredRents.set(updated);
+
           this.markAsReturned(rent.video);
+
           this.cdRef.markForCheck();
         },
         error: (err) => {
@@ -69,5 +86,47 @@ export class RentList implements OnInit {
         }
       });
     }
+  }
+
+
+  checkLate(rent: RentDTO): boolean {
+    if (!rent.returnDate) {
+      const today = new Date();
+      const rentDate = new Date(rent.rentDate);
+      const diffTime = today.getTime() - rentDate.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays > 1; // Például, ha a kölcsönzés több mint 1 napja történt
+    }
+    return false;
+  }
+
+
+  searchCustomerId(event: Event) {
+    this.customerIdFilter = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.applyFilter();
+  }
+
+  searchVideoId(event: Event) {
+    this.videoIdFilter = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.applyFilter();
+  }
+
+  searchLate(event: Event) {
+    this.lateFilter = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    const result = this.rents().filter(r =>
+      r.customer.id.toString().includes(this.customerIdFilter) &&
+      r.video.id.toString().includes(this.videoIdFilter) &&
+      (
+        r.isLate
+          ? 'igen'.includes(this.lateFilter)
+          : 'nem'.includes(this.lateFilter)
+      )
+    );
+
+    this.filteredRents.set(result);
   }
 }
