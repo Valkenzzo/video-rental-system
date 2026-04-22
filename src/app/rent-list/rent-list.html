@@ -21,7 +21,7 @@
                     <td>{{ rent.customer.name }}</td>
                     <td>{{ rent.video.id }}</td>
                     <td>{{ rent.video.title }}</td>
-                    <td>{{ rent.rentDate }}</td>
+                    <td>{{ rent.rentDate | date:'yyyy-MM-dd hh:mm' }}</td>
                      <td>{{ checkLate(rent) ? 'Igen' : 'Nem' }}</td>
                         <td>
                         <button class="btn  btn-danger btn-sm" (click)="deleteRent(rent)">Visszahozatal</button>

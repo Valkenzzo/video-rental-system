@@ -4,10 +4,11 @@ import { VideoService } from '../services/video-service';
 import { Router } from '@angular/router';
 import { RentService } from '../services/rent-service';
 import { VideoStatus } from '../../../models/enums';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-video-list',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './video-list.html',
   styleUrl: './video-list.css',
 })

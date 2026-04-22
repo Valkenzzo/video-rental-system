@@ -5,10 +5,11 @@ import { CustomerService } from '../services/customer-service';
 import { RentService } from '../services/rent-service';
 import { VideoStatus } from '../../../models/enums';
 import { VideoService } from '../services/video-service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-rent-list',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './rent-list.html',
   styleUrl: './rent-list.css',
 })

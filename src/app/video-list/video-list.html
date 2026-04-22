@@ -1,9 +1,7 @@
 <div class="row">
     <div class="col-md-8">
-        <input type="text" class="form-control mb-3" placeholder="Keresés id alapján..."
-            (input)="searchId($event)">
-        <input type="text" class="form-control mb-3" placeholder="Keresés cím alapján..."
-            (input)="searchTitle($event)">
+        <input type="text" class="form-control mb-3" placeholder="Keresés id alapján..." (input)="searchId($event)">
+        <input type="text" class="form-control mb-3" placeholder="Keresés cím alapján..." (input)="searchTitle($event)">
 
         <table class="table  table-hover align-middle">
             <thead>
@@ -19,12 +17,12 @@
                 <tr>
                     <td>{{ video.id }}</td>
                     <td>{{ video.title }}</td>
-                    <td>{{ video.dateOfPurchase }}</td>
-                    <td>{{     video.status === 'Free'
-      ? 'Szabad'
-      : video.status === 'Rented'
-        ? 'Kikölcsönzött'
-        : 'Selejtezett' }}</td>
+                    <td>{{ video.dateOfPurchase | date:'yyyy-MM-dd hh:mm' }}</td>
+                    <td>{{ video.status === 'Free'
+                        ? 'Szabad'
+                        : video.status === 'Rented'
+                        ? 'Kikölcsönzött'
+                        : 'Selejtezett' }}</td>
                     <td>
                         <button class="btn  btn-dark btn-sm me-2" (click)="editVideo(video)">Szerkesztés</button>
                         <button class="btn  btn-danger btn-sm" (click)="deleteVideo(video)">Törlés</button>
