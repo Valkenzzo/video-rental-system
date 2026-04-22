@@ -12,7 +12,7 @@ export class Video implements VideoDTO {
     title: string;
 
     @Column()
-    dateOfPurchase: Date;
+    dateOfPurchase: string;
 
     @Column()
     status: VideoStatus;

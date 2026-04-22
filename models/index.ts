@@ -13,7 +13,7 @@ export interface CustomerDTO{
 export interface VideoDTO{
     id: number;
     title: string;
-    dateOfPurchase: Date;
+    dateOfPurchase: string;
     status: VideoStatus;
     
 }
@@ -22,8 +22,7 @@ export interface RentDTO{
     id: number;
     customer: CustomerDTO;
     video: VideoDTO;
-    rentDate: Date;
-    returnDate: Date | null;
+    rentDate: string;
     isActive: boolean;
     isLate: boolean;
 }

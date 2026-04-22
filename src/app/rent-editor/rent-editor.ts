@@ -103,8 +103,7 @@ export class RentEditor implements OnInit {
       id: 0, // This will be set by the backend
       customer: this.selectedCustomer!,
       video: video,
-      rentDate: new Date(), 
-      returnDate: null,
+      rentDate: new Date().toISOString(),
       isActive: true,
       isLate: false
     };

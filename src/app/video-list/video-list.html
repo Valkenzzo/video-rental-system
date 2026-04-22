@@ -17,7 +17,7 @@
                 <tr>
                     <td>{{ video.id }}</td>
                     <td>{{ video.title }}</td>
-                    <td>{{ video.dateOfPurchase | date:'yyyy-MM-dd hh:mm' }}</td>
+                    <td>{{ video.dateOfPurchase | date:'yyyy-MM-dd' }}</td>
                     <td>{{ video.status === 'Free'
                         ? 'Szabad'
                         : video.status === 'Rented'

@@ -14,13 +14,12 @@ import { CommonModule } from '@angular/common';
 })
 export class VideoEditor implements OnInit {
 
-  video: VideoDTO = {
-    id: 0,
-    title: '',
-    dateOfPurchase: new Date(),
-    status: VideoStatus.Free
-
-  };
+ video: VideoDTO = {
+  id: 0,
+  title: '',
+  dateOfPurchase: new Date().toISOString().split('T')[0],
+  status: VideoStatus.Free
+};
 
   videoService = inject(VideoService);
   router = inject(Router);

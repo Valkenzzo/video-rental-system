@@ -91,13 +91,13 @@ export class RentList implements OnInit {
 
 
   checkLate(rent: RentDTO): boolean {
-    if (!rent.returnDate) {
-      const today = new Date();
-      const rentDate = new Date(rent.rentDate);
-      const diffTime = today.getTime() - rentDate.getTime();
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays > 1; // Például, ha a kölcsönzés több mint 1 napja történt
-    }
+
+    const today = new Date();
+    const rentDate = new Date(rent.rentDate);
+    const diffTime = today.getTime() - rentDate.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays > 1; // Például, ha a kölcsönzés több mint 1 napja történt
+
     return false;
   }
 

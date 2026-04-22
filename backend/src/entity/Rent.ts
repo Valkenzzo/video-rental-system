@@ -15,11 +15,9 @@ export class Rent implements RentDTO{
     video: Video;
 
     @Column()
-    rentDate: Date;
+    rentDate: string;
 
-    @Column({ nullable: true })
-    returnDate: Date;
-
+   
     @Column({ default: true })
     isActive: boolean;
 
